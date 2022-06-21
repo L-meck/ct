@@ -25,6 +25,8 @@ class _PaperViewerState extends State<PaperViewer> {
 
     var loadingPercentage = 0;
     // late Completer<WebViewController> controller;
+    final Completer<WebViewController> _controller =
+    Completer<WebViewController>();
 
 @override
   Widget build(BuildContext context){
@@ -47,97 +49,6 @@ class _PaperViewerState extends State<PaperViewer> {
                 // isScrollControlled: true,
                 builder: (context) => Stack(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 40.0),
-                      child: NavigationControls(controller: controller),
-                    ),
-                    // Row(children: [
-                    //           IconButton(
-                    //             icon: const Icon(Icons.arrow_back_ios),
-                    //             onPressed: () async {
-                    //               if (await controller.canGoBack()) {
-                    //                 await controller.goBack();
-                    //               } else {
-                    //                 ScaffoldMessenger.of(context).showSnackBar(
-                    //                   const SnackBar(content: Text('No back history item')),
-                    //                 );
-                    //                 return;
-                    //               }
-                    //             },
-                    //           ),
-                    //           IconButton(
-                    //             icon: const Icon(Icons.arrow_forward_ios),
-                    //             onPressed: () async {
-                    //               if (await controller.canGoForward()) {
-                    //                 await controller.goForward();
-                    //               } else {
-                    //                 ScaffoldMessenger.of(context).showSnackBar(
-                    //                   const SnackBar(content: Text('No forward history item')),
-                    //                 );
-                    //                 return;
-                    //               }
-                    //             },
-                    //           ),
-                    //           IconButton(
-                    //             icon: const Icon(Icons.replay),
-                    //             onPressed: () {
-                    //               controller.reload();
-                    //             },
-                    //           ),
-                    // ],),
-                // FutureBuilder<WebViewController>(
-                //   future: controller.future,
-                //   builder: (context, snapshot) {
-                //     final WebViewController? controller = snapshot.data;
-                //     if (snapshot.connectionState != ConnectionState.done ||
-                //         controller == null) {
-                //       return Row(
-                //         children: const <Widget>[
-                //           Icon(Icons.arrow_back_ios),
-                //           Icon(Icons.arrow_forward_ios),
-                //           Icon(Icons.replay),
-                //         ],
-                //       );
-                //     }
-                //
-                //     return Row(
-                //       children: <Widget>[
-                //         IconButton(
-                //           icon: const Icon(Icons.arrow_back_ios),
-                //           onPressed: () async {
-                //             if (await controller.canGoBack()) {
-                //               await controller.goBack();
-                //             } else {
-                //               ScaffoldMessenger.of(context).showSnackBar(
-                //                 const SnackBar(content: Text('No back history item')),
-                //               );
-                //               return;
-                //             }
-                //           },
-                //         ),
-                //         IconButton(
-                //           icon: const Icon(Icons.arrow_forward_ios),
-                //           onPressed: () async {
-                //             if (await controller.canGoForward()) {
-                //               await controller.goForward();
-                //             } else {
-                //               ScaffoldMessenger.of(context).showSnackBar(
-                //                 const SnackBar(content: Text('No forward history item')),
-                //               );
-                //               return;
-                //             }
-                //           },
-                //         ),
-                //         IconButton(
-                //           icon: const Icon(Icons.replay),
-                //           onPressed: () {
-                //             controller.reload();
-                //           },
-                //         ),
-                //       ],
-                //     );
-                //   },
-                // ),
                     WebView(
                       key: _key,
                       initialUrl: 'https://www.google.com',
@@ -163,7 +74,8 @@ class _PaperViewerState extends State<PaperViewer> {
                     if(loadingPercentage < 100)
                       LinearProgressIndicator(
                         value: loadingPercentage / 100.0,
-                      )
+                      ),
+                    // NavigationControls(controller: controller),
                   ],
                 ),
             ),
