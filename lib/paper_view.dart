@@ -17,7 +17,7 @@ class PaperViewer extends StatefulWidget {
 }
 
 class _PaperViewerState extends State<PaperViewer> {
-    final PanelController _pc = PanelController();
+    // final PanelController _pc = PanelController();
     final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
       Factory(() => EagerGestureRecognizer())
     };
@@ -30,7 +30,6 @@ class _PaperViewerState extends State<PaperViewer> {
 
 @override
   Widget build(BuildContext context){
-  final controller = Completer<WebViewController>();
   return Scaffold(
     resizeToAvoidBottomInset: true,
   body: const Text('pdf'),
@@ -48,28 +47,34 @@ class _PaperViewerState extends State<PaperViewer> {
                 context: context,
                 // isScrollControlled: true,
                 builder: (context) => Stack(
+                  clipBehavior: Clip.none,
                   children: [
-                    WebView(
-                      key: _key,
-                      initialUrl: 'https://www.google.com',
-                      javascriptMode: JavascriptMode.unrestricted,
-                      gestureRecognizers: gestureRecognizers,
-                      onPageStarted: (url){
-                        setState(() {
-                          loadingPercentage = 0;
-                        });
-                      },
-                      onProgress: (progress){
-                        setState(() {
-                          loadingPercentage = progress;
-                          },
-                        );
-                      },
-                      onPageFinished: (url){
-                        setState(() {
-                          loadingPercentage = 100;
-                        });
-                      },
+                    Positioned(
+                        child: NavigationControls(controller: _controller),
+                    ),
+                    Positioned(
+                      child: WebView(
+                        key: _key,
+                        initialUrl: 'https://www.google.com',
+                        javascriptMode: JavascriptMode.unrestricted,
+                        gestureRecognizers: gestureRecognizers,
+                        onPageStarted: (url){
+                          setState(() {
+                            loadingPercentage = 0;
+                          });
+                        },
+                        onProgress: (progress){
+                          setState(() {
+                            loadingPercentage = progress;
+                            },
+                          );
+                        },
+                        onPageFinished: (url){
+                          setState(() {
+                            loadingPercentage = 100;
+                          });
+                        },
+                      ),
                     ),
                     if(loadingPercentage < 100)
                       LinearProgressIndicator(
