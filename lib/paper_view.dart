@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:collegetemplate/web_ctrl.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -8,7 +12,7 @@ import 'package:flutter/gestures.dart';
 class PaperViewer extends StatefulWidget {
    const PaperViewer({Key? key}) : super(key: key);
 
-  @override
+   @override
   State<PaperViewer> createState() => _PaperViewerState();
 }
 
@@ -19,100 +23,156 @@ class _PaperViewerState extends State<PaperViewer> {
     };
     final UniqueKey _key = UniqueKey();
 
+    var loadingPercentage = 0;
+    // late Completer<WebViewController> controller;
 
-  //   @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: SlidingUpPanel(
-  //       controller: _pc,
-  //       backdropEnabled: true,
-  //       parallaxEnabled: true,
-  //       panel: const WebView(
-  //         initialUrl: 'https://www.google.com',
-  //       ),
-  //       body: const Center(
-  //         child: Text("Pdf Display"),
-  //       ),
-  //     ),
-  //   );
-  // }
 @override
   Widget build(BuildContext context){
+  final controller = Completer<WebViewController>();
   return Scaffold(
     resizeToAvoidBottomInset: true,
-  body: Text('pdf'),
-    floatingActionButton: FloatingActionButton(
-      onPressed: (){
-        showModalBottomSheet(
-            context: context,
-            builder: (context) => WebView(
-              key: _key,
-              initialUrl: 'https://www.google.com',
-              javascriptMode: JavascriptMode.unrestricted,
-              gestureRecognizers: gestureRecognizers,
+  body: const Text('pdf'),
+    floatingActionButton: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: Text('Quick Search',
+          style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        FloatingActionButton(
+          onPressed: () => showModalBottomSheet(
+                context: context,
+                // isScrollControlled: true,
+                builder: (context) => Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 40.0),
+                      child: NavigationControls(controller: controller),
+                    ),
+                    // Row(children: [
+                    //           IconButton(
+                    //             icon: const Icon(Icons.arrow_back_ios),
+                    //             onPressed: () async {
+                    //               if (await controller.canGoBack()) {
+                    //                 await controller.goBack();
+                    //               } else {
+                    //                 ScaffoldMessenger.of(context).showSnackBar(
+                    //                   const SnackBar(content: Text('No back history item')),
+                    //                 );
+                    //                 return;
+                    //               }
+                    //             },
+                    //           ),
+                    //           IconButton(
+                    //             icon: const Icon(Icons.arrow_forward_ios),
+                    //             onPressed: () async {
+                    //               if (await controller.canGoForward()) {
+                    //                 await controller.goForward();
+                    //               } else {
+                    //                 ScaffoldMessenger.of(context).showSnackBar(
+                    //                   const SnackBar(content: Text('No forward history item')),
+                    //                 );
+                    //                 return;
+                    //               }
+                    //             },
+                    //           ),
+                    //           IconButton(
+                    //             icon: const Icon(Icons.replay),
+                    //             onPressed: () {
+                    //               controller.reload();
+                    //             },
+                    //           ),
+                    // ],),
+                // FutureBuilder<WebViewController>(
+                //   future: controller.future,
+                //   builder: (context, snapshot) {
+                //     final WebViewController? controller = snapshot.data;
+                //     if (snapshot.connectionState != ConnectionState.done ||
+                //         controller == null) {
+                //       return Row(
+                //         children: const <Widget>[
+                //           Icon(Icons.arrow_back_ios),
+                //           Icon(Icons.arrow_forward_ios),
+                //           Icon(Icons.replay),
+                //         ],
+                //       );
+                //     }
+                //
+                //     return Row(
+                //       children: <Widget>[
+                //         IconButton(
+                //           icon: const Icon(Icons.arrow_back_ios),
+                //           onPressed: () async {
+                //             if (await controller.canGoBack()) {
+                //               await controller.goBack();
+                //             } else {
+                //               ScaffoldMessenger.of(context).showSnackBar(
+                //                 const SnackBar(content: Text('No back history item')),
+                //               );
+                //               return;
+                //             }
+                //           },
+                //         ),
+                //         IconButton(
+                //           icon: const Icon(Icons.arrow_forward_ios),
+                //           onPressed: () async {
+                //             if (await controller.canGoForward()) {
+                //               await controller.goForward();
+                //             } else {
+                //               ScaffoldMessenger.of(context).showSnackBar(
+                //                 const SnackBar(content: Text('No forward history item')),
+                //               );
+                //               return;
+                //             }
+                //           },
+                //         ),
+                //         IconButton(
+                //           icon: const Icon(Icons.replay),
+                //           onPressed: () {
+                //             controller.reload();
+                //           },
+                //         ),
+                //       ],
+                //     );
+                //   },
+                // ),
+                    WebView(
+                      key: _key,
+                      initialUrl: 'https://www.google.com',
+                      javascriptMode: JavascriptMode.unrestricted,
+                      gestureRecognizers: gestureRecognizers,
+                      onPageStarted: (url){
+                        setState(() {
+                          loadingPercentage = 0;
+                        });
+                      },
+                      onProgress: (progress){
+                        setState(() {
+                          loadingPercentage = progress;
+                          },
+                        );
+                      },
+                      onPageFinished: (url){
+                        setState(() {
+                          loadingPercentage = 100;
+                        });
+                      },
+                    ),
+                    if(loadingPercentage < 100)
+                      LinearProgressIndicator(
+                        value: loadingPercentage / 100.0,
+                      )
+                  ],
+                ),
             ),
-        );
-      },
-      child: Icon(Icons.search),
+          child: const Icon(Icons.search),
+        ),
+      ],
     ),
   );
 }
 }
 //TODO: Advert Placement
-void _showBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (context) {
-      return GestureDetector(
-        onTap: () => Navigator.of(context).pop(),
-        child: Container(
-          // color: const Color.fromRGBO(0, 0, 0, 0.001),
-          child: DraggableScrollableSheet(
-            initialChildSize: 0.4,
-            minChildSize: 0.2,
-            maxChildSize: 0.75,
-            builder: (_, controller) {
-              // return Container(
-              //   decoration: const BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.only(
-              //       topLeft: const Radius.circular(25.0),
-              //       topRight: const Radius.circular(25.0),
-              //     ),
-              //   ),
-              //   child: Column(
-              //     children: [
-              //       Icon(
-              //         Icons.remove,
-              //         color: Colors.grey[600],
-              //       ),
-              //       Expanded(
-              //         child: ListView.builder(
-              //           controller: controller,
-              //           itemCount: 100,
-              //           itemBuilder: (_, index) {
-              //             return Card(
-              //               child: Padding(
-              //                 padding: EdgeInsets.all(8),
-              //                 child: Text("Element at index($index)"),
-              //               ),
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // );
-              return const WebView(
-                gestureNavigationEnabled: true,
-                initialUrl: 'https://www.google.com',
-              );
-            },
-          ),
-        ),
-      );
-    },
-  );
-}
+
