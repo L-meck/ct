@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
             MaterialPageRoute(builder: (context) => const PaperViewer()),
           );
         },
-        tooltip: 'Increment',
+        tooltip: 'Search',
         child: const Icon(Icons.web_stories),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

@@ -1,9 +1,6 @@
 import 'dart:async';
 
-import 'package:collegetemplate/web_ctrl.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -17,17 +14,16 @@ class PaperViewer extends StatefulWidget {
 }
 
 class _PaperViewerState extends State<PaperViewer> {
-    // final PanelController _pc = PanelController();
     final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
       Factory(() => EagerGestureRecognizer())
     };
     final UniqueKey _key = UniqueKey();
 
     var loadingPercentage = 0;
-    // late Completer<WebViewController> controller;
+    late Completer<WebViewController> controller;
     final Completer<WebViewController> _controller =
     Completer<WebViewController>();
-
+    late Future<WebViewController> _webViewControllerFuture;
 @override
   Widget build(BuildContext context){
   return Scaffold(
@@ -49,38 +45,88 @@ class _PaperViewerState extends State<PaperViewer> {
                 builder: (context) => Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Positioned(
-                        child: NavigationControls(controller: _controller),
-                    ),
-                    Positioned(
-                      child: WebView(
-                        key: _key,
-                        initialUrl: 'https://www.google.com',
-                        javascriptMode: JavascriptMode.unrestricted,
-                        gestureRecognizers: gestureRecognizers,
-                        onPageStarted: (url){
-                          setState(() {
-                            loadingPercentage = 0;
-                          });
-                        },
-                        onProgress: (progress){
-                          setState(() {
-                            loadingPercentage = progress;
-                            },
-                          );
-                        },
-                        onPageFinished: (url){
-                          setState(() {
-                            loadingPercentage = 100;
-                          });
-                        },
-                      ),
+                    WebView(
+                      key: _key,
+                      initialUrl: 'https://www.google.com',
+                      javascriptMode: JavascriptMode.unrestricted,
+                      gestureRecognizers: gestureRecognizers,
+                      onWebViewCreated: (WebViewController webViewController) {
+                        _controller.complete(webViewController);
+                      },
+                      onPageStarted: (url){
+                        setState(() {
+                          loadingPercentage = 0;
+                        });
+                      },
+                      onProgress: (progress){
+                        setState(() {
+                          loadingPercentage = progress;
+                          },
+                        );
+                      },
+                      onPageFinished: (url){
+                        setState(() {
+                          loadingPercentage = 100;
+                        });
+                      },
                     ),
                     if(loadingPercentage < 100)
                       LinearProgressIndicator(
                         value: loadingPercentage / 100.0,
                       ),
-                    // NavigationControls(controller: controller),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        color: Colors.black12,
+                        child: FutureBuilder<WebViewController>(
+                          future: _webViewControllerFuture,
+                          builder:
+                          (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
+                          final bool webViewReady =
+                          snapshot.connectionState == ConnectionState.done;
+                          final WebViewController? controller = snapshot.data;
+                       return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: IconButton(
+                                icon: const Icon(Icons.replay,
+                                color: Colors.black,
+                                ),
+                                onPressed: (){
+                                  print('replay');
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: IconButton(
+                                icon: const Icon(Icons.arrow_back_ios,
+                                color: Colors.black,
+                                ),
+                                onPressed: (){
+                                  print('back pressed');
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: IconButton(
+                                icon: const Icon(Icons.arrow_forward_ios,
+                                color: Colors.black,
+                                ),
+                                onPressed: ()async{
+                                  await controller!.goBack();
+                                  print('forward');
+                                  return;
+                                },
+                              ),
+                            ),
+                          ],);},
+                        ),
+                      ),
+                    ),
                   ],
                 ),
             ),
