@@ -1,16 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 
 
-class PaperViewer extends StatelessWidget {
-  const PaperViewer({Key? key}) : super(key: key);
+class PaperViewer extends StatefulWidget {
+   const PaperViewer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  State<PaperViewer> createState() => _PaperViewerState();
+}
 
-    );
-  }
+class _PaperViewerState extends State<PaperViewer> {
+    final PanelController _pc = PanelController();
+    final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
+      Factory(() => EagerGestureRecognizer())
+    };
+    final UniqueKey _key = UniqueKey();
+
+
+  //   @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: SlidingUpPanel(
+  //       controller: _pc,
+  //       backdropEnabled: true,
+  //       parallaxEnabled: true,
+  //       panel: const WebView(
+  //         initialUrl: 'https://www.google.com',
+  //       ),
+  //       body: const Center(
+  //         child: Text("Pdf Display"),
+  //       ),
+  //     ),
+  //   );
+  // }
+@override
+  Widget build(BuildContext context){
+  return Scaffold(
+    resizeToAvoidBottomInset: true,
+  body: Text('pdf'),
+    floatingActionButton: FloatingActionButton(
+      onPressed: (){
+        showModalBottomSheet(
+            context: context,
+            builder: (context) => WebView(
+              key: _key,
+              initialUrl: 'https://www.google.com',
+              javascriptMode: JavascriptMode.unrestricted,
+              gestureRecognizers: gestureRecognizers,
+            ),
+        );
+      },
+      child: Icon(Icons.search),
+    ),
+  );
+}
 }
 //TODO: Advert Placement
 void _showBottomSheet(BuildContext context) {
