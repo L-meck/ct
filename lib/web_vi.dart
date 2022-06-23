@@ -1,18 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 
-class PaperViewer extends StatefulWidget {
-  const PaperViewer({Key? key}) : super(key: key);
+class WebVi extends StatefulWidget {
+  const WebVi({Key? key}) : super(key: key);
 
   @override
-  State<PaperViewer> createState() => _PaperViewerState();
+  State<WebVi> createState() => _WebViState();
 }
 
-class _PaperViewerState extends State<PaperViewer> {
+class _WebViState extends State<WebVi> {
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer())
   };
@@ -27,6 +28,7 @@ class _PaperViewerState extends State<PaperViewer> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: const Text('pdf'),
@@ -46,31 +48,12 @@ class _PaperViewerState extends State<PaperViewer> {
               builder: (context) => Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  WebView(
-                    key: _key,
-                    initialUrl: 'https://www.google.com',
-                    javascriptMode: JavascriptMode.unrestricted,
-                    gestureRecognizers: gestureRecognizers,
-                    onWebViewCreated: (WebViewController webViewController) {
-                      _controller.complete(webViewController);
-                    },
-                    onPageStarted: (url) {
-                      setState(() {
-                        loadingPercentage = 0;
-                      });
-                    },
-                    onProgress: (progress) {
-                      setState(
-                        () {
-                          loadingPercentage = progress;
-                        },
-                      );
-                    },
-                    onPageFinished: (url) {
-                      setState(() {
-                        loadingPercentage = 100;
-                      });
-                    },
+                  const WebviewScaffold(
+                    url: 'https://www.google.com',
+                    mediaPlaybackRequiresUserGesture: false,
+                    withZoom: true,
+                    withLocalStorage: true,
+                    hidden: true,
                   ),
                   if (loadingPercentage < 100)
                     LinearProgressIndicator(
@@ -120,4 +103,3 @@ class _PaperViewerState extends State<PaperViewer> {
   }
 }
 //TODO: Advert Placement
-
