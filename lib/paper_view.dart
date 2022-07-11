@@ -16,14 +16,15 @@ class _PaperViewerState extends State<PaperViewer> {
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer())
   };
+
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
   final UniqueKey _key = UniqueKey();
 
   var loadingPercentage = 0;
 
   late Completer<WebViewController> controller;
-
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
 
   @override
   Widget build(BuildContext context) {
@@ -76,41 +77,43 @@ class _PaperViewerState extends State<PaperViewer> {
                     LinearProgressIndicator(
                       value: loadingPercentage / 100.0,
                     ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            focusColor: Colors.red,
-                            icon: const Icon(
-                              Icons.replay,
-                              color: Colors.yellow,
-                            ),
-                            onPressed: () {
-                              print('replay');
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            focusColor: Colors.red,
-                            color: Colors.pink,
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.yellow,
-                            ),
-                            onPressed: (){
-                              //
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                    
+                  // Align(
+                    // alignment: Alignment.bottomCenter,
+                    // child: Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: IconButton(
+                    //         focusColor: Colors.red,
+                    //         icon: const Icon(
+                    //           Icons.replay,
+                    //           color: Colors.yellow,
+                    //         ),
+                    //         onPressed: () {
+                    //           print('replay');
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: IconButton(
+                    //         focusColor: Colors.red,
+                    //         color: Colors.pink,
+                    //         icon: const Icon(
+                    //           Icons.arrow_back_ios,
+                    //           color: Colors.yellow,
+                    //         ),
+                    //         onPressed: (){
+                    //           //
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                  // ),
+                  NavigationControls(),
                 ],
               ),
             ),
