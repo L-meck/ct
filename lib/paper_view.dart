@@ -79,14 +79,15 @@ class _PaperViewerState extends State<PaperViewer> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
+                            focusColor: Colors.red,
                             icon: const Icon(
                               Icons.replay,
-                              color: Colors.black,
+                              color: Colors.yellow,
                             ),
                             onPressed: () {
                               print('replay');
@@ -96,13 +97,14 @@ class _PaperViewerState extends State<PaperViewer> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
+                            focusColor: Colors.red,
                             color: Colors.pink,
                             icon: const Icon(
                               Icons.arrow_back_ios,
-                              color: Colors.black,
+                              color: Colors.yellow,
                             ),
-                            onPressed: () {
-                              print('back pressed');
+                            onPressed: (){
+                              //
                             },
                           ),
                         ),
@@ -121,3 +123,66 @@ class _PaperViewerState extends State<PaperViewer> {
 }
 //TODO: Advert Placement
 
+
+class NavigationControls extends StatelessWidget {
+  const NavigationControls(this._webViewControllerFuture, {Key? key})
+      : super(key: key);
+
+  final Future<WebViewController> _webViewControllerFuture;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<WebViewController>(
+      future: _webViewControllerFuture,
+      builder:
+          (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
+        final bool webViewReady =
+            snapshot.connectionState == ConnectionState.done;
+        final WebViewController? controller = snapshot.data;
+        return Row(
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: !webViewReady
+                  ? null
+                  : () async {
+                      if (await controller!.canGoBack()) {
+                        await controller.goBack();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('No back history item')),
+                        );
+                        return;
+                      }
+                    },
+            ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_ios),
+              onPressed: !webViewReady
+                  ? null
+                  : () async {
+                      if (await controller!.canGoForward()) {
+                        await controller.goForward();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('No forward history item')),
+                        );
+                        return;
+                      }
+                    },
+            ),
+            IconButton(
+              icon: const Icon(Icons.replay),
+              onPressed: !webViewReady
+                ? null
+                : () {
+                    controller!.reload();
+                  },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

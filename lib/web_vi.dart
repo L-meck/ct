@@ -51,9 +51,9 @@ class _WebViState extends State<WebVi> {
                   const WebviewScaffold(
                     url: 'https://www.google.com',
                     mediaPlaybackRequiresUserGesture: false,
-                    withZoom: true,
+                    // withZoom: true,
                     withLocalStorage: true,
-                    hidden: true,
+                    // hidden: true,
                   ),
                   if (loadingPercentage < 100)
                     LinearProgressIndicator(
@@ -72,7 +72,7 @@ class _WebViState extends State<WebVi> {
                               color: Colors.black,
                             ),
                             onPressed: () {
-                              print('replay');
+                              print('refresh');
                             },
                           ),
                         ),
