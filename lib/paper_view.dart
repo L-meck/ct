@@ -113,7 +113,6 @@ class _PaperViewerState extends State<PaperViewer> {
                     //   ],
                     // ),
                   // ),
-                  NavigationControls(),
                 ],
               ),
             ),
