@@ -29,6 +29,7 @@ class _PaperViewerState extends State<PaperViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       resizeToAvoidBottomInset: true,
       body: const Text('pdf'),
       floatingActionButton: Row(
