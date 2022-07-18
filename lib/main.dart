@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    PaperViewer()),
+                    PaperViewer()),//TODO: FIX THIS CRAP
             // MaterialPageRoute(builder: (context) => const WebVi()),
           );
         },
