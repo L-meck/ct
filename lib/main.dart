@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:collegetemplate/paper_view.dart';
 import 'package:collegetemplate/web_vi.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,7 +11,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +20,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Papers Template'),
+      home:  MyHomePage(title: 'Papers Template'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+   MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
+
+  final Completer<WebViewController> _controler =
+      Completer<WebViewController>();
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,17 +47,19 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-             Text(
+            Text(
               'HI:',
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const PaperViewer()),
+            MaterialPageRoute(
+                builder: (context) =>
+                    PaperViewer()),
             // MaterialPageRoute(builder: (context) => const WebVi()),
           );
         },
