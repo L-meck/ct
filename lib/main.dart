@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:collegetemplate/paper_view.dart';
 import 'package:collegetemplate/web_vi.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
