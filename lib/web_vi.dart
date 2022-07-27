@@ -46,21 +46,19 @@ class _WebViState extends State<WebVi> {
             onPressed: () => showModalBottomSheet(
               context: context,
               builder: (context) => Stack(
-                clipBehavior: Clip.none,
+                clipBehavior: Clip.antiAlias,
                 children: [
-                  const WebviewScaffold(
-                    url: 'https://www.google.com',
-                    mediaPlaybackRequiresUserGesture: false,
-                    // withZoom: true,
-                    withLocalStorage: true,
-                    // hidden: true,
-                  ),
-                  if (loadingPercentage < 100)
-                    LinearProgressIndicator(
-                      value: loadingPercentage / 100.0,
+                  Container(
+                    child: const WebviewScaffold(
+                      url: 'https://www.google.com',
+                      mediaPlaybackRequiresUserGesture: false,
+                      // withZoom: true,
+                      withLocalStorage: true,
+                      // hidden: true,
                     ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
+                  ),
+                  Positioned(
+                    bottom: -20,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -92,6 +90,10 @@ class _WebViState extends State<WebVi> {
                       ],
                     ),
                   ),
+                  if (loadingPercentage < 100)
+                    LinearProgressIndicator(
+                      value: loadingPercentage / 100.0,
+                    ),
                 ],
               ),
             ),
