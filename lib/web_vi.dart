@@ -48,14 +48,12 @@ class _WebViState extends State<WebVi> {
               builder: (context) => Stack(
                 clipBehavior: Clip.antiAlias,
                 children: [
-                  Container(
-                    child: const WebviewScaffold(
-                      url: 'https://www.google.com',
-                      mediaPlaybackRequiresUserGesture: false,
-                      // withZoom: true,
-                      withLocalStorage: true,
-                      // hidden: true,
-                    ),
+                  const WebviewScaffold(
+                    url: 'https://www.google.com',
+                    mediaPlaybackRequiresUserGesture: false,
+                    // withZoom: true,
+                    withLocalStorage: true,
+                    // hidden: true,
                   ),
                   Positioned(
                     bottom: -20,
