@@ -56,8 +56,6 @@ class PaperViewer extends StatelessWidget {
                 future: _webViewControllerFuture,
                 builder: (BuildContext context,
                     AsyncSnapshot<WebViewController> snapshot) {
-                  final bool webViewReady =
-                      snapshot.connectionState == ConnectionState.done;
                   final WebViewController? controller = snapshot.data;
                   return Stack(
                     clipBehavior: Clip.none,

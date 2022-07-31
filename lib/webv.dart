@@ -1,19 +1,25 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class WebVi extends StatefulWidget {
-  const WebVi({Key? key}) : super(key: key);
+class Tired extends StatefulWidget {
+   const Tired({Key? key}) : super(key: key);
+
 
   @override
-  State<WebVi> createState() => _WebViState();
+  State<Tired> createState() => _TiredState();
 }
 
-class _WebViState extends State<WebVi> {
+class _TiredState extends State<Tired> {
+
+  
+  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
+    Factory(() => EagerGestureRecognizer())
+  };
+
 
   @override
   void initState() {
@@ -41,49 +47,11 @@ class _WebViState extends State<WebVi> {
           FloatingActionButton(
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (context) => Stack(
-                clipBehavior: Clip.antiAlias,
-                children: [
-                  const WebView(
+              builder: (context) => WebView(
                     initialUrl: 'https://www.google.com',
                     javascriptMode: JavascriptMode.unrestricted,
-                    
+                    gestureRecognizers: gestureRecognizers,
                   ),
-                  Positioned(
-                    bottom: -20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.replay,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              print('refresh');
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            color: Colors.pink,
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              print('back pressed');
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
             ),
             child: const Icon(Icons.search),
           ),
@@ -92,4 +60,3 @@ class _WebViState extends State<WebVi> {
     );
   }
 }
-//TODO: Advert Placement
