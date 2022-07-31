@@ -23,6 +23,8 @@ class _WebViState extends State<WebVi> {
 
   late Completer<WebViewController> controller;
 
+  //TODO: FIX THIS CONTROLLER
+
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
@@ -45,55 +47,55 @@ class _WebViState extends State<WebVi> {
           FloatingActionButton(
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (context) => Stack(
-                clipBehavior: Clip.antiAlias,
-                children: [
-                  const WebviewScaffold(
+              // builder: (context) => Stack(
+                // clipBehavior: Clip.antiAlias,
+                // children: [
+                  builder: (context) => const WebviewScaffold(
                     url: 'https://www.google.com',
                     mediaPlaybackRequiresUserGesture: false,
                     // withZoom: true,
                     withLocalStorage: true,
                     // hidden: true,
                   ),
-                  Positioned(
-                    bottom: -20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.replay,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              print('refresh');
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            color: Colors.pink,
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              print('back pressed');
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Positioned(
+                  //   bottom: -20,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Padding(
+                  //         padding: const EdgeInsets.all(8.0),
+                  //         child: IconButton(
+                  //           icon: const Icon(
+                  //             Icons.replay,
+                  //             color: Colors.black,
+                  //           ),
+                  //           onPressed: () {
+                  //             print('refresh');
+                  //           },
+                  //         ),
+                  //       ),
+                  //       Padding(
+                  //         padding: const EdgeInsets.all(8.0),
+                  //         child: IconButton(
+                  //           color: Colors.pink,
+                  //           icon: const Icon(
+                  //             Icons.arrow_back_ios,
+                  //             color: Colors.black,
+                  //           ),
+                  //           onPressed: () {
+                  //             print('back pressed');
+                  //           },
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   if (loadingPercentage < 100)
                     LinearProgressIndicator(
                       value: loadingPercentage / 100.0,
                     ),
-                ],
-              ),
+                // ],
+              // ),
             ),
             child: const Icon(Icons.search),
           ),
