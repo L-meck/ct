@@ -17,7 +17,7 @@ import 'package:flutter/gestures.dart';
 //   };
 
 class PaperViewer extends StatelessWidget {
-   PaperViewer(this._webViewControllerFuture, {Key? key}) : super(key: key);
+  //  PaperViewer(this._webViewControllerFuture, {Key? key}) : super(key: key);
   
  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer())
