@@ -77,10 +77,20 @@ class _TiredState extends State<Tired> {
             FloatingActionButton(
               onPressed: () => showModalBottomSheet(
                 context: context,
-                builder: (context) => WebView(
+                builder: (context) => Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: FloatingActionButton(
+                        onPressed: (){},
+                      child: Icon(Icons.add_photo_alternate),),
+                    ),
+                    WebView(
                   initialUrl: 'https://www.google.com',
                   javascriptMode: JavascriptMode.unrestricted,
                   gestureRecognizers: gestureRecognizers,
+                )
+                  ],
                 ),
               ),
               child: const Icon(Icons.search),
