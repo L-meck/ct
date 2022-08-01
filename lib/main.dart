@@ -1,9 +1,5 @@
-import 'dart:async';
-import 'package:collegetemplate/paper_view.dart';
-import 'package:collegetemplate/web_vi.dart';
 import 'package:collegetemplate/webv.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,17 +16,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  MyHomePage(title: 'Papers Template'),
+      home:  const MyHomePage(title: 'Papers Template'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-   MyHomePage({Key? key, required this.title}) : super(key: key);
+   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
-
-  final Completer<WebViewController> _controler =
-      Completer<WebViewController>();
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();

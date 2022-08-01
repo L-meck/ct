@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class Tired extends StatefulWidget {
   const Tired({Key? key}) : super(key: key);
+
+  //  final Completer<WebViewController> controller;
 
   @override
   State<Tired> createState() => _TiredState();
@@ -29,7 +31,7 @@ class _TiredState extends State<Tired> {
   Widget build(BuildContext context) {
     return WillPopScope(
       // onWillPop: () async=> false, //disable back button
-      onWillPop: () async { 
+      onWillPop: () async {
         Future<dynamic> _showMyDialog() async {
           return showDialog<void>(
             context: context,
@@ -40,14 +42,14 @@ class _TiredState extends State<Tired> {
                 content: SingleChildScrollView(
                   child: ListBody(
                     children: const <Widget>[
-                      Text('This is a demo alert dialog.'),
-                      Text('Would you like to approve of this message?'),
+                      Text('Ad.'),
+                      Text('Interstitial Ad'),
                     ],
                   ),
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text('Approve'),
+                    child: const Text('Close'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -57,8 +59,9 @@ class _TiredState extends State<Tired> {
             },
           );
         }
-         bool? result= await _showMyDialog();
-          result ??= false;
+
+        bool? result = await _showMyDialog();
+        result ??= false;
         return result;
       },
       child: Scaffold(
@@ -79,17 +82,58 @@ class _TiredState extends State<Tired> {
                 context: context,
                 builder: (context) => Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: FloatingActionButton(
-                        onPressed: (){},
-                      child: Icon(Icons.add_photo_alternate),),
-                    ),
                     WebView(
-                  initialUrl: 'https://www.google.com',
-                  javascriptMode: JavascriptMode.unrestricted,
-                  gestureRecognizers: gestureRecognizers,
-                )
+                      initialUrl: 'https://www.google.com',
+                      javascriptMode: JavascriptMode.unrestricted,
+                      gestureRecognizers: gestureRecognizers,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 4.0, right: 4.0, bottom: 6.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: FloatingActionButton(
+                              onPressed: () {print('back');},
+                              backgroundColor: Colors.grey,
+                              elevation: 0.0,
+                              child: const Icon(
+                                Icons.arrow_back_ios_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                print('refresh');
+                              },
+                              backgroundColor: Colors.grey,
+                              elevation: 0.0,
+                              child: const Icon(
+                                Icons.refresh,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: FloatingActionButton(
+                              onPressed: () {print('forward');},
+                              backgroundColor: Colors.grey,
+                              elevation: 0.0,
+                              child: const Icon(
+                                Icons.arrow_forward_ios_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
