@@ -29,7 +29,7 @@ class _TiredState extends State<Tired> {
   Widget build(BuildContext context) {
     return WillPopScope(
       // onWillPop: () async=> false, //disable back button
-      onWillPop: () async {
+      onWillPop: () async { 
         Future<dynamic> _showMyDialog() async {
           return showDialog<void>(
             context: context,
@@ -60,7 +60,6 @@ class _TiredState extends State<Tired> {
          bool? result= await _showMyDialog();
           result ??= false;
         return result;
-        // return _showMyDialog();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -92,7 +91,6 @@ class _TiredState extends State<Tired> {
     );
   }
 }
-
 
 
 // Future<bool>? _onBackPressed() {
