@@ -19,6 +19,8 @@ class _TiredState extends State<Tired> {
     Factory(() => EagerGestureRecognizer())
   };
 
+  late WebViewController controller;
+
   @override
   void initState() {
     super.initState();
@@ -32,37 +34,46 @@ class _TiredState extends State<Tired> {
     return WillPopScope(
       // onWillPop: () async=> false, //disable back button
       onWillPop: () async {
-        Future<dynamic> _showMyDialog() async {
-          return showDialog<void>(
-            context: context,
-            barrierDismissible: false, // user must tap button!
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('AlertDialog Title'),
-                content: SingleChildScrollView(
-                  child: ListBody(
-                    children: const <Widget>[
-                      Text('Ad.'),
-                      Text('Interstitial Ad'),
-                    ],
-                  ),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    child: const Text('Close'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
+        if (await controller.canGoBack()) {
+          controller.goBack();
+          return false;
+        } else {
+          return true;
         }
+        //
+        //SHOWING DIALOG BUTTON
+        //
+        // Future<dynamic> _showMyDialog() async {
+        //   return showDialog<void>(
+        //     context: context,
+        //     barrierDismissible: false, // user must tap button!
+        //     builder: (BuildContext context) {
+        //       return AlertDialog(
+        //         title: const Text('AlertDialog Title'),
+        //         content: SingleChildScrollView(
+        //           child: ListBody(
+        //             children: const <Widget>[
+        //               Text('Ad.'),
+        //               Text('Interstitial Ad'),
+        //             ],
+        //           ),
+        //         ),
+        //         actions: <Widget>[
+        //           TextButton(
+        //             child: const Text('Close'),
+        //             onPressed: () {
+        //               Navigator.of(context).pop();
+        //             },
+        //           ),
+        //         ],
+        //       );
+        //     },
+        //   );
+        // }
 
-        bool? result = await _showMyDialog();
-        result ??= false;
-        return result;
+        // bool? result = await _showMyDialog();
+        // result ??= false;
+        // return result;
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -86,6 +97,11 @@ class _TiredState extends State<Tired> {
                       initialUrl: 'https://www.google.com',
                       javascriptMode: JavascriptMode.unrestricted,
                       gestureRecognizers: gestureRecognizers,
+                      //back and forth button
+                      onWebViewCreated: (controller) {
+                        //
+                        this.controller = controller;
+                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -96,8 +112,10 @@ class _TiredState extends State<Tired> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () {
-                                print('back');
+                              onPressed: () async {
+                                if (await controller.canGoBack()) {
+                                  controller.goBack();
+                                }
                               },
                               backgroundColor: Colors.grey,
                               splashColor: Colors.amber,
@@ -111,8 +129,8 @@ class _TiredState extends State<Tired> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () {
-                                print('refresh');
+                              onPressed: () async {
+                                controller.reload();
                               },
                               backgroundColor: Colors.grey,
                               splashColor: Colors.green,
@@ -126,8 +144,10 @@ class _TiredState extends State<Tired> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () {
-                                print('forward');
+                              onPressed: () async {
+                                if (await controller.canGoForward()) {
+                                  controller.goForward();
+                                }
                               },
                               backgroundColor: Colors.grey,
                               splashColor: Colors.purple,
