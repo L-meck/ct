@@ -96,8 +96,11 @@ class _TiredState extends State<Tired> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () {print('back');},
+                              onPressed: () {
+                                print('back');
+                              },
                               backgroundColor: Colors.grey,
+                              splashColor: Colors.amber,
                               elevation: 0.0,
                               child: const Icon(
                                 Icons.arrow_back_ios_outlined,
@@ -112,6 +115,7 @@ class _TiredState extends State<Tired> {
                                 print('refresh');
                               },
                               backgroundColor: Colors.grey,
+                              splashColor: Colors.green,
                               elevation: 0.0,
                               child: const Icon(
                                 Icons.refresh,
@@ -122,8 +126,11 @@ class _TiredState extends State<Tired> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () {print('forward');},
+                              onPressed: () {
+                                print('forward');
+                              },
                               backgroundColor: Colors.grey,
+                              splashColor: Colors.purple,
                               elevation: 0.0,
                               child: const Icon(
                                 Icons.arrow_forward_ios_outlined,

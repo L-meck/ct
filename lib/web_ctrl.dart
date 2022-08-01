@@ -34,7 +34,7 @@ class NavigationControls extends StatelessWidget {
                   onPressed: (){},
                 ),
               ],
-          ),
+            ),
           );
         }
 
