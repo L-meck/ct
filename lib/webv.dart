@@ -31,67 +31,76 @@ class _TiredState extends State<Tired> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      // onWillPop: () async=> false, //disable back button
-      onWillPop: () async {
-        if (await controller.canGoBack()) {
-          controller.goBack();
-          return false;
-        } else {
-          return true;
-        }
-        //
-        //SHOWING DIALOG BUTTON
-        //
-        // Future<dynamic> _showMyDialog() async {
-        //   return showDialog<void>(
-        //     context: context,
-        //     barrierDismissible: false, // user must tap button!
-        //     builder: (BuildContext context) {
-        //       return AlertDialog(
-        //         title: const Text('AlertDialog Title'),
-        //         content: SingleChildScrollView(
-        //           child: ListBody(
-        //             children: const <Widget>[
-        //               Text('Ad.'),
-        //               Text('Interstitial Ad'),
-        //             ],
-        //           ),
-        //         ),
-        //         actions: <Widget>[
-        //           TextButton(
-        //             child: const Text('Close'),
-        //             onPressed: () {
-        //               Navigator.of(context).pop();
-        //             },
-        //           ),
-        //         ],
-        //       );
-        //     },
-        //   );
-        // }
+    // return WillPopScope(
+    //   // onWillPop: () async=> false, //disable back button
+    //   onWillPop: () async {
+    //     if (await controller.canGoBack()) {
+    //       controller.goBack();
+    //       return false;
+    //     } else {
+    //       return true;
+    //     }
+    //
+    //SHOWING DIALOG BUTTON
+    //
+    // Future<dynamic> _showMyDialog() async {
+    //   return showDialog<void>(
+    //     context: context,
+    //     barrierDismissible: false, // user must tap button!
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: const Text('AlertDialog Title'),
+    //         content: SingleChildScrollView(
+    //           child: ListBody(
+    //             children: const <Widget>[
+    //               Text('Ad.'),
+    //               Text('Interstitial Ad'),
+    //             ],
+    //           ),
+    //         ),
+    //         actions: <Widget>[
+    //           TextButton(
+    //             child: const Text('Close'),
+    //             onPressed: () {
+    //               Navigator.of(context).pop();
+    //             },
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
 
-        // bool? result = await _showMyDialog();
-        // result ??= false;
-        // return result;
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: const Text('pdf'),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: Text(
-                'Quick Search',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+    // bool? result = await _showMyDialog();
+    // result ??= false;
+    // return result;
+    // },
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: const Text('pdf'),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Text(
+              'Quick Google',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            FloatingActionButton(
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                builder: (context) => Stack(
+          ),
+          FloatingActionButton(
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              builder: (context) => WillPopScope(
+                onWillPop: () async {
+                  if (await controller.canGoBack()) {
+                    controller.goBack();
+                    return false;
+                  } else {
+                    return true;
+                  }
+                },
+                child: Stack(
                   children: [
                     WebView(
                       initialUrl: 'https://www.google.com',
@@ -109,6 +118,22 @@ class _TiredState extends State<Tired> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: FloatingActionButton(
+                              onPressed: () async {
+                                controller.clearCache();
+                                CookieManager().clearCookies();
+                              },
+                              backgroundColor: Colors.grey,
+                              splashColor: Colors.red,
+                              elevation: 0.0,
+                              child: const Icon(
+                                Icons.cookie,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
@@ -164,12 +189,13 @@ class _TiredState extends State<Tired> {
                   ],
                 ),
               ),
-              child: const Icon(Icons.search),
             ),
-          ],
-        ),
+            child: const Icon(Icons.search),
+          ),
+        ],
       ),
     );
+    // );
   }
 }
 
