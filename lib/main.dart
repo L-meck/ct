@@ -1,3 +1,4 @@
+import 'package:collegetemplate/test_ads.dart';
 import 'package:collegetemplate/webv.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -33,6 +34,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //ad
+  Banner? _banner;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _createBannerAd();
+  }
+
+  void _createBannerAd() {
+    _banner = (BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdMobService.bannerAdUnitId!,
+      listener: AdMobService.bannerAdListener,
+      request: const AdRequest()   
+    )..load()) as Banner?;
+  }
+
+  @override
+   void dispose() {
+    super.dispose();
+    // _createBannerAd.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +85,14 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Search',
         child: const Icon(Icons.web_stories),
       ),
+      bottomNavigationBar: _banner == null
+          ? Container()
+          : Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              height: 52,
+              child: AdWidget(ad: _banner),
+            ),
     );
   }
 }
+ 
