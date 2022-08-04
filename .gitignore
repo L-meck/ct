@@ -46,8 +46,6 @@ app.*.map.json
 /android/app/release
 
 test_ads.dart
-android/
-/android
-AndroidManifest.xml
-*/android/app/src/main/AndroidManifest.xml
+/app/
+profile/
 AndroidManifest.xml
