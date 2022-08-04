@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/icon_park_outline.dart';
 import 'package:iconify_flutter/icons/zondicons.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -145,12 +146,13 @@ class _TiredState extends State<Tired> {
                                 }
                               },
                               backgroundColor: Colors.grey,
-                              splashColor: Colors.amber,
+                              splashColor: Colors.transparent,
                               elevation: 0.0,
-                              child: const Icon(
-                                Icons.arrow_back_ios_outlined,
-                                color: Colors.white,
-                              ),
+                              // child: const Icon(
+                              //   Icons.arrow_back_ios_outlined,
+                              //   color: Colors.white,
+                              // ),
+                              child: const Iconify(IconParkOutline.arrow_left)
                             ),
                           ),
                           Align(
@@ -161,11 +163,12 @@ class _TiredState extends State<Tired> {
                               },
                               backgroundColor: Colors.grey,
                               splashColor: Colors.green,
-                              elevation: 0.0,
-                              child: const Icon(
-                                Icons.refresh,
-                                color: Colors.white,
-                              ),
+                              elevation: 1.0,
+                              // child: const Icon(
+                              //   Icons.refresh,
+                              //   color: Colors.white,
+                              // ),
+                              child: const Iconify(IconParkOutline.rotating_forward)
                             ),
                           ),
                           Align(
@@ -184,7 +187,7 @@ class _TiredState extends State<Tired> {
                               //   color: Colors.white,
                               // ),
                               // Zondicons.airplane
-                              child: const Iconify(Zondicons.arrow_left)
+                              child: const Iconify(IconParkOutline.arrow_right)
                             ),
                           ),
                         ],
