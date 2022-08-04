@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/zondicons.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Tired extends StatefulWidget {
@@ -177,10 +179,12 @@ class _TiredState extends State<Tired> {
                               backgroundColor: Colors.grey,
                               splashColor: Colors.purple,
                               elevation: 0.0,
-                              child: const Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color: Colors.white,
-                              ),
+                              // child: const Icon(
+                              //   Icons.arrow_forward_ios_outlined,
+                              //   color: Colors.white,
+                              // ),
+                              // Zondicons.airplane
+                              child: const Iconify(Zondicons.arrow_left)
                             ),
                           ),
                         ],

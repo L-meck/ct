@@ -1,7 +1,10 @@
 import 'package:collegetemplate/webv.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(const MyApp());
 }
 
@@ -16,13 +19,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  const MyHomePage(title: 'Papers Template'),
+      home: const MyHomePage(title: 'Papers Template'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-   const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -50,8 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => Tired()), 
+            MaterialPageRoute(builder: (context) => const Tired()),
           );
         },
         tooltip: 'Search',
