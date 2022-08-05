@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final AdSize adSize = const AdSize(width: 300, height: 50);
 
   InterstitialAd? _interstitialAd;
+  RewardedInterstitialAd? _rewardedInterstitialAd;
 
   @override
   void initState() {
@@ -47,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _myBanner();
     _createInterstitialAd();
+    _createRewardedInterstitialAd();
   }
 
   _myBanner() {
@@ -117,12 +119,66 @@ class _MyHomePageState extends State<MyHomePage> {
     _interstitialAd?.show();
     _interstitialAd = (null) as InterstitialAd;
   }
+
 /////////////
+  void _createRewardedInterstitialAd() {
+    RewardedInterstitialAd.load(
+        adUnitId: rewardedInterstitialTest,
+        request: const AdRequest(),
+        rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+          onAdLoaded: (RewardedInterstitialAd ad) {
+            print('$ad loaded.');
+            _rewardedInterstitialAd = ad;
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            print('RewardedInterstitialAd failed to load: $error');
+            _rewardedInterstitialAd = null;
+            _createRewardedInterstitialAd();
+          },
+        ));
+  }
+
+  void _showRewardedInterstitialAd() {
+    if (_rewardedInterstitialAd == null) {
+      debugPrint(
+          'Warning: attempt to show rewarded interstitial before loaded.');
+      return;
+    }
+    _rewardedInterstitialAd!.fullScreenContentCallback =
+        FullScreenContentCallback(
+      onAdShowedFullScreenContent: (RewardedInterstitialAd ad) =>
+          debugPrint('$ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (RewardedInterstitialAd ad) {
+        debugPrint('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        _createRewardedInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent:
+          (RewardedInterstitialAd ad, AdError error) {
+        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        _createRewardedInterstitialAd();
+      },
+    );
+
+    _rewardedInterstitialAd!.setImmersiveMode(true);
+    _rewardedInterstitialAd!.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+      debugPrint(
+          '$ad with reward $RewardItem(${reward.amount}, ${reward.type})');
+    });
+    _rewardedInterstitialAd = null;
+  }
+
+  ///
+  ///
 
   @override
   void dispose() {
     super.dispose();
-    _myBanner().dispose();
+    _myBanner()?.dispose();
+    _interstitialAd?.dispose();
+    _rewardedInterstitialAd?.dispose();
   }
 
   @override
@@ -147,8 +203,8 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(builder: (context) => const Tired()),
           );
-          
-          _showInterstitialAd();
+          _showRewardedInterstitialAd();
+          // _showInterstitialAd();
         },
         tooltip: 'Search',
         child: const Icon(Icons.web_stories),
