@@ -36,25 +36,41 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //ad
   Banner? _banner;
+  final AdSize adSize = const AdSize(width: 300, height: 50);
 
   @override
   void initState() {
     super.initState();
 
-    _createBannerAd();
+    myBanner;
   }
 
-  void _createBannerAd() {
-    _banner = (BannerAd(
-      size: AdSize.fullBanner,
-      adUnitId: AdMobService.bannerAdUnitId!,
-      listener: AdMobService.bannerAdListener,
-      request: const AdRequest()   
-    )..load()) as Banner?;
-  }
+  final BannerAd myBanner = BannerAd(
+    adUnitId: banner,
+    size: AdSize.banner,
+    request: const AdRequest(),
+    listener: const BannerAdListener(),
+  );
+
+  final BannerAdListener listener = BannerAdListener(
+    // Called when an ad is successfully received.
+    onAdLoaded: (Ad ad) => debugPrint('Ad loaded.'),
+    // Called when an ad request failed.
+    onAdFailedToLoad: (Ad ad, LoadAdError error) {
+      // Dispose the ad here to free resources.
+      ad.dispose();
+      debugPrint('Ad failed to load: $error');
+    },
+    // Called when an ad opens an overlay that covers the screen.
+    onAdOpened: (Ad ad) => debugPrint('Ad opened.'),
+    // Called when an ad removes an overlay that covers the screen.
+    onAdClosed: (Ad ad) => debugPrint('Ad closed.'),
+    // Called when an impression occurs on the ad.
+    onAdImpression: (Ad ad) => debugPrint('Ad impression.'),
+  );
 
   @override
-   void dispose() {
+  void dispose() {
     super.dispose();
     // _createBannerAd.dispose();
   }
@@ -88,11 +104,11 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: _banner == null
           ? Container()
           : Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              height: 52,
-              child: AdWidget(ad: _banner),
+              alignment: Alignment.center,
+              child: AdWidget(ad: myBanner),
+              width: myBanner.size.width.toDouble(),
+              height: myBanner.size.height.toDouble(),
             ),
     );
   }
 }
- 
