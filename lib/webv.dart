@@ -21,7 +21,7 @@ class _TiredState extends State<Tired> {
   };
 
   late WebViewController controller;
-  InterstitialAd?  _interstitialAd;
+  InterstitialAd? _interstitialAd;
 
   @override
   void initState() {
@@ -117,7 +117,6 @@ class _TiredState extends State<Tired> {
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
                               onPressed: () async {
-                                _showInterstitialAd();
                                 controller.clearCache();
                                 CookieManager().clearCookies();
                               },
@@ -151,23 +150,25 @@ class _TiredState extends State<Tired> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                                onPressed: () async {
-                                  controller.reload();
-                                },
-                                backgroundColor: Colors.grey,
-                                splashColor: Colors.green,
-                                elevation: 1.0,
-                                // child: const Icon(
-                                //   Icons.refresh,
-                                //   color: Colors.white,
-                                // ),
-                                child: const Iconify(
-                                    IconParkOutline.rotating_forward)),
+                              onPressed: () async {
+                                controller.reload();
+                              },
+                              backgroundColor: Colors.grey,
+                              splashColor: Colors.green,
+                              elevation: 1.0,
+                              // child: const Icon(
+                              //   Icons.refresh,
+                              //   color: Colors.white,
+                              // ),
+                              child: const Iconify(
+                                  IconParkOutline.rotating_forward),
+                            ),
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
                                 onPressed: () async {
+                                _showInterstitialAd();
                                   if (await controller.canGoForward()) {
                                     controller.goForward();
                                   }
