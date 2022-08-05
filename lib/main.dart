@@ -35,22 +35,32 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //ad
-  Banner? _banner;
+  late BannerAd _bannerAd;
+  late bool _isAdLoaded = false;
   final AdSize adSize = const AdSize(width: 300, height: 50);
 
   @override
   void initState() {
     super.initState();
 
-    myBanner;
+    _myBanner();
   }
 
-  final BannerAd myBanner = BannerAd(
-    adUnitId: banner,
-    size: AdSize.banner,
-    request: const AdRequest(),
-    listener: const BannerAdListener(),
-  );
+  _myBanner() {
+    _bannerAd = BannerAd(
+      adUnitId: banner,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              _isAdLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {}),
+    );
+    _bannerAd.load();
+  }
 
   final BannerAdListener listener = BannerAdListener(
     // Called when an ad is successfully received.
@@ -101,14 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Search',
         child: const Icon(Icons.web_stories),
       ),
-      bottomNavigationBar: _banner == null
-          ? Container()
-          : Container(
-              alignment: Alignment.center,
-              child: AdWidget(ad: myBanner),
-              width: myBanner.size.width.toDouble(),
-              height: myBanner.size.height.toDouble(),
-            ),
+      bottomNavigationBar: _isAdLoaded ? Container(
+        child: AdWidget(ad: _bannerAd),
+      ) : const SizedBox(),
     );
   }
 }
