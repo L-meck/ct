@@ -21,7 +21,7 @@ class _TiredState extends State<Tired> {
   };
 
   late WebViewController controller;
-  late InterstitialAd _interstitialAd;
+  InterstitialAd?  _interstitialAd;
 
   @override
   void initState() {
@@ -31,64 +31,45 @@ class _TiredState extends State<Tired> {
     }
 
     _createInterstitialAd();
+    _showInterstitialAd();
   }
 
-  void _createInterstitialAd(){
+  void _createInterstitialAd() {
     InterstitialAd.load(
-      adUnitId: interstitialTest, 
-      request: const AdRequest(), 
+      adUnitId: interstitialTest,
+      request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) => _interstitialAd = ad, 
-        onAdFailedToLoad: (LoadAdError error) => _interstitialAd, 
-    ),);
+        onAdLoaded: (ad) => _interstitialAd = ad,
+        onAdFailedToLoad: (LoadAdError error) {},
+      ),
+    );
+  }
+
+  void _showInterstitialAd() {
+    if (_interstitialAd == null) {
+      debugPrint('Warning: attempt to show interstitial before loaded.');
+      return;
+    }
+    _interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) =>
+          debugPrint('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        debugPrint('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+    );
+    _interstitialAd?.show();
+    _interstitialAd = (null) as InterstitialAd;
   }
 
   @override
   Widget build(BuildContext context) {
-    // return WillPopScope(
-    //   // onWillPop: () async=> false, //disable back button
-    //   onWillPop: () async {
-    //     if (await controller.canGoBack()) {
-    //       controller.goBack();
-    //       return false;
-    //     } else {
-    //       return true;
-    //     }
-    //
-    //SHOWING DIALOG BUTTON
-    //
-    // Future<dynamic> _showMyDialog() async {
-    //   return showDialog<void>(
-    //     context: context,
-    //     barrierDismissible: false, // user must tap button!
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         title: const Text('AlertDialog Title'),
-    //         content: SingleChildScrollView(
-    //           child: ListBody(
-    //             children: const <Widget>[
-    //               Text('Ad.'),
-    //               Text('Interstitial Ad'),
-    //             ],
-    //           ),
-    //         ),
-    //         actions: <Widget>[
-    //           TextButton(
-    //             child: const Text('Close'),
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
-
-    // bool? result = await _showMyDialog();
-    // result ??= false;
-    // return result;
-    // },
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: const Text('pdf'),
@@ -136,6 +117,7 @@ class _TiredState extends State<Tired> {
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
                               onPressed: () async {
+                                _showInterstitialAd();
                                 controller.clearCache();
                                 CookieManager().clearCookies();
                               },

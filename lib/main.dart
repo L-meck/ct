@@ -39,11 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
   late bool _isAdLoaded = false;
   final AdSize adSize = const AdSize(width: 300, height: 50);
 
+  InterstitialAd? _interstitialAd;
+
   @override
   void initState() {
     super.initState();
 
     _myBanner();
+    _createInterstitialAd();
   }
 
   _myBanner() {
@@ -79,6 +82,43 @@ class _MyHomePageState extends State<MyHomePage> {
     onAdImpression: (Ad ad) => debugPrint('Ad impression.'),
   );
 
+  /////interstitial
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: interstitialTest,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _interstitialAd = ad,
+        onAdFailedToLoad: (LoadAdError error) {},
+      ),
+    );
+  }
+
+  void _showInterstitialAd() {
+    if (_interstitialAd == null) {
+      debugPrint('Warning: attempt to show interstitial before loaded.');
+      return;
+    }
+    _interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) =>
+          debugPrint('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        debugPrint('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+    );
+    _interstitialAd?.show();
+    _interstitialAd = (null) as InterstitialAd;
+  }
+/////////////
+
   @override
   void dispose() {
     super.dispose();
@@ -103,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          _showInterstitialAd();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Tired()),
@@ -111,11 +152,13 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Search',
         child: const Icon(Icons.web_stories),
       ),
-      bottomNavigationBar: _isAdLoaded ? Container(
-        height: 50,
-        width: 300,
-        child: AdWidget(ad: _bannerAd),
-      ) : const SizedBox(),
+      bottomNavigationBar: _isAdLoaded
+          ? SizedBox(
+              height: 50,
+              width: 300,
+              child: AdWidget(ad: _bannerAd),
+            )
+          : const SizedBox(),
     );
   }
 }
