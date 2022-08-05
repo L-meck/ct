@@ -1,17 +1,15 @@
-import 'dart:async';
 import 'dart:io';
+import 'package:collegetemplate/test_ads.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_outline.dart';
-import 'package:iconify_flutter/icons/zondicons.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Tired extends StatefulWidget {
   const Tired({Key? key}) : super(key: key);
-
-  //  final Completer<WebViewController> controller;
 
   @override
   State<Tired> createState() => _TiredState();
@@ -23,6 +21,7 @@ class _TiredState extends State<Tired> {
   };
 
   late WebViewController controller;
+  late InterstitialAd _interstitialAd;
 
   @override
   void initState() {
@@ -30,6 +29,18 @@ class _TiredState extends State<Tired> {
     if (Platform.isAndroid) {
       WebView.platform = SurfaceAndroidWebView();
     }
+
+    _createInterstitialAd();
+  }
+
+  void _createInterstitialAd(){
+    InterstitialAd.load(
+      adUnitId: interstitialTest, 
+      request: const AdRequest(), 
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _interstitialAd = ad, 
+        onAdFailedToLoad: (LoadAdError error) => _interstitialAd, 
+    ),);
   }
 
   @override
@@ -140,55 +151,55 @@ class _TiredState extends State<Tired> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () async {
-                                if (await controller.canGoBack()) {
-                                  controller.goBack();
-                                }
-                              },
-                              backgroundColor: Colors.grey,
-                              splashColor: Colors.transparent,
-                              elevation: 0.0,
-                              // child: const Icon(
-                              //   Icons.arrow_back_ios_outlined,
-                              //   color: Colors.white,
-                              // ),
-                              child: const Iconify(IconParkOutline.arrow_left)
-                            ),
+                                onPressed: () async {
+                                  if (await controller.canGoBack()) {
+                                    controller.goBack();
+                                  }
+                                },
+                                backgroundColor: Colors.grey,
+                                splashColor: Colors.transparent,
+                                elevation: 0.0,
+                                // child: const Icon(
+                                //   Icons.arrow_back_ios_outlined,
+                                //   color: Colors.white,
+                                // ),
+                                child:
+                                    const Iconify(IconParkOutline.arrow_left)),
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () async {
-                                controller.reload();
-                              },
-                              backgroundColor: Colors.grey,
-                              splashColor: Colors.green,
-                              elevation: 1.0,
-                              // child: const Icon(
-                              //   Icons.refresh,
-                              //   color: Colors.white,
-                              // ),
-                              child: const Iconify(IconParkOutline.rotating_forward)
-                            ),
+                                onPressed: () async {
+                                  controller.reload();
+                                },
+                                backgroundColor: Colors.grey,
+                                splashColor: Colors.green,
+                                elevation: 1.0,
+                                // child: const Icon(
+                                //   Icons.refresh,
+                                //   color: Colors.white,
+                                // ),
+                                child: const Iconify(
+                                    IconParkOutline.rotating_forward)),
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
-                              onPressed: () async {
-                                if (await controller.canGoForward()) {
-                                  controller.goForward();
-                                }
-                              },
-                              backgroundColor: Colors.grey,
-                              splashColor: Colors.purple,
-                              elevation: 0.0,
-                              // child: const Icon(
-                              //   Icons.arrow_forward_ios_outlined,
-                              //   color: Colors.white,
-                              // ),
-                              // Zondicons.airplane
-                              child: const Iconify(IconParkOutline.arrow_right)
-                            ),
+                                onPressed: () async {
+                                  if (await controller.canGoForward()) {
+                                    controller.goForward();
+                                  }
+                                },
+                                backgroundColor: Colors.grey,
+                                splashColor: Colors.purple,
+                                elevation: 0.0,
+                                // child: const Icon(
+                                //   Icons.arrow_forward_ios_outlined,
+                                //   color: Colors.white,
+                                // ),
+                                // Zondicons.airplane
+                                child:
+                                    const Iconify(IconParkOutline.arrow_right)),
                           ),
                         ],
                       ),

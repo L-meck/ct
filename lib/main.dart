@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //ad
+  //bannerAd
   late BannerAd _bannerAd;
   late bool _isAdLoaded = false;
   final AdSize adSize = const AdSize(width: 300, height: 50);
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _myBanner() {
     _bannerAd = BannerAd(
-      adUnitId: banner,
+      adUnitId: bannerTest,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-    // _createBannerAd.dispose();
+    _myBanner().dispose();
   }
 
   @override
@@ -112,6 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.web_stories),
       ),
       bottomNavigationBar: _isAdLoaded ? Container(
+        height: 50,
+        width: 300,
         child: AdWidget(ad: _bannerAd),
       ) : const SizedBox(),
     );
