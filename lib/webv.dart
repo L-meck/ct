@@ -168,10 +168,10 @@ class _TiredState extends State<Tired> {
                             alignment: Alignment.bottomRight,
                             child: FloatingActionButton(
                                 onPressed: () async {
-                                _showInterstitialAd();
                                   if (await controller.canGoForward()) {
                                     controller.goForward();
                                   }
+                                  _showInterstitialAd();
                                 },
                                 backgroundColor: Colors.grey,
                                 splashColor: Colors.purple,
