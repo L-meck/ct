@@ -143,11 +143,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showInterstitialAd();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Tired()),
           );
+          
+          _showInterstitialAd();
         },
         tooltip: 'Search',
         child: const Icon(Icons.web_stories),
