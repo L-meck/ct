@@ -127,11 +127,11 @@ class _MyHomePageState extends State<MyHomePage> {
         request: const AdRequest(),
         rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
           onAdLoaded: (RewardedInterstitialAd ad) {
-            print('$ad loaded.');
+            debugPrint('$ad loaded.');
             _rewardedInterstitialAd = ad;
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print('RewardedInterstitialAd failed to load: $error');
+            debugPrint('RewardedInterstitialAd failed to load: $error');
             _rewardedInterstitialAd = null;
             _createRewardedInterstitialAd();
           },
