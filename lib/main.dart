@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _createInterstitialAd() {
     InterstitialAd.load(
-      adUnitId: interstitialTest,
+      adUnitId: interstitialVideoTest, //interstitialTest,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) => _interstitialAd = ad,
@@ -121,6 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 /////////////
+///
+///REWARDED AD
   void _createRewardedInterstitialAd() {
     RewardedInterstitialAd.load(
         adUnitId: rewardedInterstitialTest,
@@ -203,8 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(builder: (context) => const Tired()),
           );
-          _showRewardedInterstitialAd();
-          // _showInterstitialAd();
+          // _showRewardedInterstitialAd();
+          _showInterstitialAd();
         },
         tooltip: 'Search',
         child: const Icon(Icons.web_stories),
