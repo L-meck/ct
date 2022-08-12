@@ -45,12 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
+    //ads initialization
     _myBanner();
     _createInterstitialAd();
     _createRewardedInterstitialAd();
   }
-
+    //banner
   _myBanner() {
     _bannerAd = BannerAd(
       adUnitId: bannerTest,
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
       debugPrint('Warning: attempt to show interstitial before loaded.');
       return;
     }
-    
+
     _interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (InterstitialAd ad) =>
           debugPrint('ad onAdShowedFullScreenContent.'),
