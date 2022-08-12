@@ -50,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _createInterstitialAd();
     _createRewardedInterstitialAd();
   }
-    //banner
+
+  //banner
   _myBanner() {
     _bannerAd = BannerAd(
       adUnitId: bannerTest,
@@ -85,7 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
   );
 
   /////interstitial
-
   void _createInterstitialAd() {
     InterstitialAd.load(
       adUnitId: interstitialVideoTest, //interstitialTest,
@@ -111,7 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ad.dispose();
         _createInterstitialAd();
       },
-
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
         debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
         ad.dispose();
@@ -123,23 +122,24 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 /////////////
-///
-///REWARDED AD
+
+  ///REWARDED AD
   void _createRewardedInterstitialAd() {
     RewardedInterstitialAd.load(
-        adUnitId: rewardedInterstitialTest,
-        request: const AdRequest(),
-        rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
-          onAdLoaded: (RewardedInterstitialAd ad) {
-            debugPrint('$ad loaded.');
-            _rewardedInterstitialAd = ad;
-          },
-          onAdFailedToLoad: (LoadAdError error) {
-            debugPrint('RewardedInterstitialAd failed to load: $error');
-            _rewardedInterstitialAd = null;
-            _createRewardedInterstitialAd();
-          },
-        ));
+      adUnitId: rewardedInterstitialTest,
+      request: const AdRequest(),
+      rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+        onAdLoaded: (RewardedInterstitialAd ad) {
+          debugPrint('$ad loaded.');
+          _rewardedInterstitialAd = ad;
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          debugPrint('RewardedInterstitialAd failed to load: $error');
+          _rewardedInterstitialAd = null;
+          _createRewardedInterstitialAd();
+        },
+      ),
+    );
   }
 
   void _showRewardedInterstitialAd() {
@@ -167,16 +167,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _rewardedInterstitialAd!.setImmersiveMode(true);
     _rewardedInterstitialAd!.show(
-        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
-      debugPrint(
-          '$ad with reward $RewardItem(${reward.amount}, ${reward.type})');
-    });
+      onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+        debugPrint(
+            '$ad with reward $RewardItem(${reward.amount}, ${reward.type})');
+      },
+    );
     _rewardedInterstitialAd = null;
   }
 
-  ///
-  ///
-
+/////ads Dispose
   @override
   void dispose() {
     super.dispose();
