@@ -102,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
       debugPrint('Warning: attempt to show interstitial before loaded.');
       return;
     }
+    
     _interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (InterstitialAd ad) =>
           debugPrint('ad onAdShowedFullScreenContent.'),
@@ -110,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ad.dispose();
         _createInterstitialAd();
       },
+
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
         debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
         ad.dispose();
