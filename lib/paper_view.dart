@@ -17,6 +17,8 @@ import 'package:flutter/gestures.dart';
 //   };
 
 class PaperViewer extends StatelessWidget {
+  PaperViewer({Key? key}) : super(key: key);
+
   //  PaperViewer(this._webViewControllerFuture, {Key? key}) : super(key: key);
   
  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
@@ -33,6 +35,7 @@ class PaperViewer extends StatelessWidget {
   late Completer<WebViewController> controller;
 
   late final Future<WebViewController> _webViewControllerFuture;
+
 
   @override
   Widget build(BuildContext context) {
