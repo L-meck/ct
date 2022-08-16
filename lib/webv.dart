@@ -16,11 +16,15 @@ class Tired extends StatefulWidget {
 }
 
 class _TiredState extends State<Tired> {
+
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
+  
     Factory(() => EagerGestureRecognizer())
+  
   };
 
   late WebViewController controller;
+  
   InterstitialAd? _interstitialAd;
 
   @override

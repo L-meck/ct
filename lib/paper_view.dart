@@ -16,6 +16,7 @@ import 'package:flutter/gestures.dart';
 //     Factory(() => EagerGestureRecognizer())
 //   };
 
+
 class PaperViewer extends StatelessWidget {
   PaperViewer({Key? key}) : super(key: key);
 
@@ -36,7 +37,6 @@ class PaperViewer extends StatelessWidget {
 
   late final Future<WebViewController> _webViewControllerFuture;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +52,7 @@ class PaperViewer extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
+          
           FloatingActionButton(
             onPressed: () => showModalBottomSheet(
               context: context,
