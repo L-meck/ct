@@ -16,9 +16,7 @@ class Tired extends StatefulWidget {
 }
 
 class _TiredState extends State<Tired> {
-
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
-  
     Factory(() => EagerGestureRecognizer())
   
   };
@@ -33,7 +31,6 @@ class _TiredState extends State<Tired> {
     if (Platform.isAndroid) {
       WebView.platform = SurfaceAndroidWebView();
     }
-
     _createInterstitialAd();
     _showInterstitialAd();
   }
@@ -50,7 +47,7 @@ class _TiredState extends State<Tired> {
   }
 
   void _showInterstitialAd() {
-    if (_interstitialAd == null) {
+    if (_interstitialAd == null) { //TODO: REMOVE THIS print statements after refactoring
       debugPrint('Warning: attempt to show interstitial before loaded.');
       return;
     }
