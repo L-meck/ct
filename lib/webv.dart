@@ -18,11 +18,10 @@ class Tired extends StatefulWidget {
 class _TiredState extends State<Tired> {
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer())
-  
   };
 
   late WebViewController controller;
-  
+
   InterstitialAd? _interstitialAd;
 
   @override
@@ -47,7 +46,8 @@ class _TiredState extends State<Tired> {
   }
 
   void _showInterstitialAd() {
-    if (_interstitialAd == null) { //TODO: REMOVE THIS print statements after refactoring
+    if (_interstitialAd == null) {
+      //TODO: REMOVE THIS print statements after refactoring
       debugPrint('Warning: attempt to show interstitial before loaded.');
       return;
     }
@@ -56,11 +56,12 @@ class _TiredState extends State<Tired> {
           debugPrint('ad onAdShowedFullScreenContent.'),
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
         debugPrint('$ad onAdDismissedFullScreenContent.');
-        ad.dispose();//TODO: REMOVE
+        ad.dispose(); //TODO: REMOVE
         _createInterstitialAd();
       },
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');//TODO: REMOVE
+        debugPrint(
+            '$ad onAdFailedToShowFullScreenContent: $error'); //TODO: REMOVE
         ad.dispose();
         _createInterstitialAd();
       },
@@ -99,7 +100,7 @@ class _TiredState extends State<Tired> {
                 child: Stack(
                   children: [
                     WebView(
-                      initialUrl: 'https://www.google.com',//TODO: REMOVE
+                      initialUrl: 'https://www.google.com', //TODO: REMOVE
                       javascriptMode: JavascriptMode.unrestricted,
                       gestureRecognizers: gestureRecognizers,
                       //back and forth button
@@ -172,7 +173,7 @@ class _TiredState extends State<Tired> {
                                   if (await controller.canGoForward()) {
                                     controller.goForward();
                                   }
-                                  _showInterstitialAd();
+                                  _showInterstitialAd(); //TODO: REMOVE
                                 },
                                 backgroundColor: Colors.grey,
                                 splashColor: Colors.purple,
@@ -201,6 +202,7 @@ class _TiredState extends State<Tired> {
   }
 }
 
+// showdialog 
 
 // Future<bool>? _onBackPressed() {
 //   return showDialog(

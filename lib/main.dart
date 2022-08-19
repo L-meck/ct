@@ -179,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
 /////ads Dispose
 
   @override
-  void dispose() {
+  void dispose() {//TODO: REMOVE
     super.dispose();
     _myBanner()?.dispose();
     _interstitialAd?.dispose();
@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
+        child: Column(//TODO: REMOVE
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             Text(
@@ -208,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(builder: (context) => const Tired()),
           );
-          // _showRewardedInterstitialAd();
+          // _showRewardedInterstitialAd();//TODO: REMOVE
           _showInterstitialAd();
         },
         tooltip: 'Search',
