@@ -56,11 +56,11 @@ class _TiredState extends State<Tired> {
           debugPrint('ad onAdShowedFullScreenContent.'),
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
         debugPrint('$ad onAdDismissedFullScreenContent.');
-        ad.dispose();
+        ad.dispose();//TODO: REMOVE
         _createInterstitialAd();
       },
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
+        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');//TODO: REMOVE
         ad.dispose();
         _createInterstitialAd();
       },
@@ -99,7 +99,7 @@ class _TiredState extends State<Tired> {
                 child: Stack(
                   children: [
                     WebView(
-                      initialUrl: 'https://www.google.com',
+                      initialUrl: 'https://www.google.com',//TODO: REMOVE
                       javascriptMode: JavascriptMode.unrestricted,
                       gestureRecognizers: gestureRecognizers,
                       //back and forth button

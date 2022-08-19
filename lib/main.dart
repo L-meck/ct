@@ -151,9 +151,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _rewardedInterstitialAd!.fullScreenContentCallback =
         FullScreenContentCallback(
       onAdShowedFullScreenContent: (RewardedInterstitialAd ad) =>
-          debugPrint('$ad onAdShowedFullScreenContent.'),
+          debugPrint('$ad onAdShowedFullScreenContent.'),//TODO: REMOVE
       onAdDismissedFullScreenContent: (RewardedInterstitialAd ad) {
-        debugPrint('$ad onAdDismissedFullScreenContent.');
+        debugPrint('$ad onAdDismissedFullScreenContent.');//TODO: REMOVE
         ad.dispose();
         _createRewardedInterstitialAd();
       },
