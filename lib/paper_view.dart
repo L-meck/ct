@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+
+import 'pdf_list.dart';
 
 // class PaperViewer extends StatefulWidget {
 //   const PaperViewer({Key? key}) : super(key: key);
@@ -44,14 +47,16 @@ class PaperViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       resizeToAvoidBottomInset: true,
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
+      
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: kuku,
         ),
         title: Text(
-          widget.paperName,
+          paperName,
           style: TextStyle(color: kuku, fontFamily: 'Francois One'),
         ),
         centerTitle: true,
@@ -59,7 +64,7 @@ class PaperViewer extends StatelessWidget {
         elevation: 0.0,
       ),
       body: SfPdfViewer.asset(
-        widget.pdf,
+        pdf,
         // width: double.infinity,
         // height: MediaQuery.of(context).size.height,
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+final kuku = Color(0xFF6049D3);
 
 List<String> pdfs = [
   'assets/pdfs/Outline.pdf',
@@ -37,7 +37,7 @@ class PdfsButton extends StatelessWidget {
   final String paper;
 
   const PdfsButton({Key? key, required this.paper}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     const kuku = Color(0xFF6049D3);

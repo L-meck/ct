@@ -37,6 +37,7 @@ dependencies:
   webview_flutter: ^3.0.4
   google_mobile_ads: ^2.0.0
   iconify_flutter: ^0.0.4
+  syncfusion_flutter_pdfviewer: any
 
 dev_dependencies:
   flutter_test:
