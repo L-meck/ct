@@ -49,3 +49,5 @@ test_ads.dart
 /app/
 profile/
 AndroidManifest.xml
+/assets
+assets/

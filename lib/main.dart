@@ -199,7 +199,8 @@ class _MyHomePageState extends State<MyHomePage> {
         itemBuilder: (BuildContext context, int index) {
           ///////////////Concatenate Heading String Name//////////////////////
           String str = pdfs[index];
-          const start = "assets/pdfs/";
+          // const start = "assets/pdfs/";
+          const start = "assets/";
           const end = ".pdf";
 
           final startIndex = str.indexOf(start);

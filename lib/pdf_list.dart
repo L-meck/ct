@@ -2,21 +2,7 @@ import 'package:flutter/material.dart';
 final kuku = Color(0xFF6049D3);
 
 List<String> pdfs = [
-  'assets/pdfs/Outline.pdf',
-  'assets/pdfs/November 2018.pdf',
-  'assets/pdfs/November 2017.pdf',
-  'assets/pdfs/November 2016.pdf',
-  'assets/pdfs/November 2015.pdf',
-  'assets/pdfs/November 2014.pdf',
-  'assets/pdfs/November 2013.pdf',
-  'assets/pdfs/November 2010.pdf',
-  'assets/pdfs/July 2019.pdf',
-  'assets/pdfs/July 2018.pdf',
-  'assets/pdfs/July 2017.pdf',
-  'assets/pdfs/July 2016.pdf',
-  'assets/pdfs/July 2015.pdf',
-  'assets/pdfs/July 2014.pdf',
-  'assets/pdfs/July 2011.pdf',
+  'assets/ELECTRICAL MEASUREMENTS.pdf',
 ];
 
 // 1. fine
