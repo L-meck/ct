@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
 final kuku = Color(0xFF6049D3);
 
 List<String> pdfs = [
+  'assets/ELECTRICAL MEASUREMENTS.pdf',
+  'assets/ELECTRICAL MEASUREMENTS.pdf',
+  'assets/ELECTRICAL MEASUREMENTS.pdf',
   'assets/ELECTRICAL MEASUREMENTS.pdf',
 ];
 

@@ -63,11 +63,13 @@ class PaperViewer extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
+
       body: SfPdfViewer.asset(
         pdf,
         // width: double.infinity,
         // height: MediaQuery.of(context).size.height,
       ),
+      
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
