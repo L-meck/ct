@@ -1,3 +1,5 @@
+import 'package:collegetemplate/paper_view.dart';
+import 'package:collegetemplate/pdf_list.dart';
 import 'package:collegetemplate/test_ads.dart';
 import 'package:collegetemplate/webv.dart';
 import 'package:flutter/material.dart';
@@ -192,15 +194,42 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(//TODO: REMOVE
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'HI:',
+      body: ListView.builder(
+        itemCount: pdfs.length,
+        itemBuilder: (BuildContext context, int index) {
+          ///////////////Concatenate Heading String Name//////////////////////
+          String str = pdfs[index];
+          const start = "assets/pdfs/";
+          const end = ".pdf";
+
+          final startIndex = str.indexOf(start);
+          final endIndex = str.indexOf(end, startIndex + start.length);
+          String paperString =
+              str.substring(startIndex + start.length, endIndex);
+          ///////////////////////////////////////////////////////////////////
+          return InkWell(
+            // highlightColor: Colors.deepOrange,
+            // splashColor: Colors.deepPurpleAccent,
+            child: PdfsButton(
+              paper: paperString,
             ),
-          ],
-        ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => PaperViewer(
+                    pdf: pdfs[index],
+                    paperName: paperString,
+                  ),
+                ),
+              );
+              ///////////////INTERSTITIAL ADS/////////////
+              _interstitialAd?.show();
+              /////////////////////////////////////////////
+              // await RewardedVideoAd.instance.show();
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

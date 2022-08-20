@@ -18,7 +18,11 @@ import 'package:flutter/gestures.dart';
 
 
 class PaperViewer extends StatelessWidget {
-  PaperViewer({Key? key}) : super(key: key);
+
+    final pdf;
+    final paperName;
+
+  PaperViewer({Key? key, this.pdf, this.paperName}) : super(key: key);
 
   //  PaperViewer(this._webViewControllerFuture, {Key? key}) : super(key: key);
   
@@ -41,7 +45,24 @@ class PaperViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: const Text('pdf'),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: kuku,
+        ),
+        title: Text(
+          widget.paperName,
+          style: TextStyle(color: kuku, fontFamily: 'Francois One'),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
+      body: SfPdfViewer.asset(
+        widget.pdf,
+        // width: double.infinity,
+        // height: MediaQuery.of(context).size.height,
+      ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
