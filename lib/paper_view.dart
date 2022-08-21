@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:pdfx/pdfx.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -57,18 +58,19 @@ class PaperViewer extends StatelessWidget {
         ),
         title: Text(
           paperName,
-          style: TextStyle(color: kuku, fontFamily: 'Francois One'),
+          style: TextStyle(color: kuku, ),//fontFamily: 'Francois One'),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
 
-      // body: SfPdfViewer.asset(
-      body: PdfView(  
-        pdf,
-        // width: double.infinity,
-        // height: MediaQuery.of(context).size.height,
+      body: SfPdfViewer.asset(
+        pdf
+      // body: PdfView(
+      //   pdf,
+      // width: double.infinity,
+      // height: MediaQuery.of(context).size.height,
       ),
 
       floatingActionButton: Row(

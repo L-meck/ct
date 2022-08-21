@@ -24,6 +24,7 @@ List<String> pdfs = [
 
 
 class PdfsButton extends StatelessWidget {
+  
   final String paper;
 
   const PdfsButton({Key? key, required this.paper}) : super(key: key);
