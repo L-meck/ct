@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _createRewardedInterstitialAd();
   }
 
-  //banner
+  //banner_ad
   _myBanner() {
     _bannerAd = BannerAd(
       adUnitId: bannerTest,
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
     onAdImpression: (Ad ad) => debugPrint('Ad impression.'),
   );
 
-  /////interstitial
+  /////interstitial_ad
   void _createInterstitialAd() {
     InterstitialAd.load(
       adUnitId: interstitialVideoTest, //interstitialTest,
