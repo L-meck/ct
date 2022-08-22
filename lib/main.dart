@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Papers Template',
+      title: 'PapersTemplate',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Papers Template'),
+      home: const MyHomePage(title: 'PapersTemplate'),
     );
   }
 }
@@ -39,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   //bannerAd
   late BannerAd _bannerAd;
   late bool _isAdLoaded = false;
@@ -162,12 +163,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ad.dispose();
         _createRewardedInterstitialAd();
       },
+
       onAdFailedToShowFullScreenContent:
           (RewardedInterstitialAd ad, AdError error) {
         debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
         ad.dispose();
         _createRewardedInterstitialAd();
       },
+      
     );
 
     _rewardedInterstitialAd!.setImmersiveMode(true);
