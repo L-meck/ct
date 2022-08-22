@@ -21,15 +21,19 @@ import 'pdf_list.dart';
 //   };
 
 
-class PaperViewer extends StatelessWidget {
+class PaperViewer extends StatefulWidget {
 
     final pdf;
     final paperName;
 
   PaperViewer({Key? key, this.pdf, this.paperName}) : super(key: key);
 
+  @override
+  State<PaperViewer> createState() => _PaperViewerState();
+}
+
+class _PaperViewerState extends State<PaperViewer> {
   //  PaperViewer(this._webViewControllerFuture, {Key? key}) : super(key: key);
-  
  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer())
   };
@@ -57,7 +61,7 @@ class PaperViewer extends StatelessWidget {
           color: kuku,
         ),
         title: Text(
-          paperName,
+          widget.paperName,
           style: TextStyle(color: kuku, ),//fontFamily: 'Francois One'),
         ),
         centerTitle: true,
@@ -66,7 +70,7 @@ class PaperViewer extends StatelessWidget {
       ),
 
       body: SfPdfViewer.asset(
-        pdf
+        widget.pdf
       // body: PdfView(
       //   pdf,
       // width: double.infinity,
