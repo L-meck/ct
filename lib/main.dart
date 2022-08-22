@@ -126,8 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _interstitialAd = (null) as InterstitialAd;
   }
 
-/////////////
-
   ///REWARDED AD
   void _createRewardedInterstitialAd() {
     RewardedInterstitialAd.load(
@@ -202,6 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: pdfs.length,
         itemBuilder: (BuildContext context, int index) {
+
           ///////////////Concatenate Heading String Name//////////////////////
           String str = pdfs[index];
           // const start = "assets/pdfs/";
@@ -213,6 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
           String paperString =
               str.substring(startIndex + start.length, endIndex);
           ///////////////////////////////////////////////////////////////////
+          
           return InkWell(
             // highlightColor: Colors.deepOrange,
             // splashColor: Colors.deepPurpleAccent,
