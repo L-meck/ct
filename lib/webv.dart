@@ -143,7 +143,7 @@ class _TiredState extends State<Tired> {
                                 splashColor: Colors.transparent,
                                 elevation: 0.0,
                                 // child: const Icon(
-                                //   Icons.arrow_back_ios_outlined,
+                                //   Icons.arrow_back_ios_outlined, //remove
                                 //   color: Colors.white,
                                 // ),
                                 child:
@@ -160,7 +160,7 @@ class _TiredState extends State<Tired> {
                               elevation: 1.0,
                               // child: const Icon(
                               //   Icons.refresh,
-                              //   color: Colors.white,
+                              //   color: Colors.white, //remove
                               // ),
                               child: const Iconify(
                                   IconParkOutline.rotating_forward),
@@ -179,7 +179,7 @@ class _TiredState extends State<Tired> {
                                 splashColor: Colors.purple,
                                 elevation: 0.0,
                                 // child: const Icon(
-                                //   Icons.arrow_forward_ios_outlined,
+                                //   Icons.arrow_forward_ios_outlined, //remove
                                 //   color: Colors.white,
                                 // ),
                                 // Zondicons.airplane
