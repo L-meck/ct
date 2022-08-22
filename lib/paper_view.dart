@@ -78,6 +78,7 @@ class PaperViewer extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.only(right: 8.0),
+
             child: Text(
               'Quick Search',
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -126,7 +127,6 @@ class PaperViewer extends StatelessWidget {
                         LinearProgressIndicator(
                           value: loadingPercentage / 100.0,
                         ),
-                      //
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Row(
@@ -141,7 +141,7 @@ class PaperViewer extends StatelessWidget {
                                   color: Colors.yellow,
                                 ),
                                 onPressed: () {
-                                  print('forward');
+                                  print('forward');//todo: remove after full debugging
                                 },
                               ),
                             ),
@@ -154,7 +154,7 @@ class PaperViewer extends StatelessWidget {
                                   color: Colors.yellow,
                                 ),
                                 onPressed: () {
-                                  print('reload');
+                                  print('reload');//todo: remove after full debugging
                                 },
                               ),
                             ),
@@ -168,7 +168,7 @@ class PaperViewer extends StatelessWidget {
                                   color: Colors.yellow,
                                 ),
                                 onPressed: () {
-                                  print('backward');
+                                  print('backward');//todo: remove after full debugging
                                 },
                               ),
                             ),
