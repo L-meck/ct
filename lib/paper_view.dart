@@ -33,6 +33,7 @@ class PaperViewer extends StatefulWidget {
 }
 
 class _PaperViewerState extends State<PaperViewer> {
+  
   //  PaperViewer(this._webViewControllerFuture, {Key? key}) : super(key: key);
  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer())
