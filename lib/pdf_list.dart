@@ -32,7 +32,9 @@ class PdfsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     const kuku = Color(0xFF6049D3);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

@@ -216,10 +216,12 @@ class _MyHomePageState extends State<MyHomePage> {
           return InkWell(
             // highlightColor: Colors.deepOrange,
             // splashColor: Colors.deepPurpleAccent,
+
             child: PdfsButton(
               paper: paperString,
             ),
             onTap: () {
+              
               Navigator.push(
                 context,
                 MaterialPageRoute(
