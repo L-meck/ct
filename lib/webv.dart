@@ -46,6 +46,7 @@ class _TiredState extends State<Tired> {
   }
 
   void _showInterstitialAd() {
+  
     if (_interstitialAd == null) {
       //TODO: REMOVE THIS print statements after refactoring
       debugPrint('Warning: attempt to show interstitial before loaded.');
