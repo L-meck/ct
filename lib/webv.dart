@@ -46,7 +46,6 @@ class _TiredState extends State<Tired> {
   }
 
   void _showInterstitialAd() {
-  
     if (_interstitialAd == null) {
       //TODO: REMOVE THIS print statements after refactoring
       debugPrint('Warning: attempt to show interstitial before loaded.');
@@ -57,7 +56,8 @@ class _TiredState extends State<Tired> {
           debugPrint('ad onAdShowedFullScreenContent.'),
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
         debugPrint('$ad onAdDismissedFullScreenContent.');
-        ad.dispose(); //TODO: REMOVE
+        ad.dispose(); 
+        //TODO: REMOVE
         _createInterstitialAd();
       },
       //
