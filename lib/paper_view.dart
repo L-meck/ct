@@ -56,7 +56,6 @@ class _PaperViewerState extends State<PaperViewer> {
 
       resizeToAvoidBottomInset: true,
       // extendBodyBehindAppBar: true,
-      
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: kuku,
