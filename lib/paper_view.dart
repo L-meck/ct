@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pdfx/pdfx.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -69,13 +68,13 @@ class _PaperViewerState extends State<PaperViewer> {
         elevation: 0.0,
       ),
 
-      body: SfPdfViewer.asset(
-        widget.pdf
+      // body: SfPdfViewer.asset(
+        // widget.pdf
       // body: PdfView(
-      //   pdf,
+        // pdf,
       // width: double.infinity,
       // height: MediaQuery.of(context).size.height,
-      ),
+      // ),
 
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
