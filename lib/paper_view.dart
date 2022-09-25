@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:pdfx/pdfx.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -32,7 +32,22 @@ class PaperViewer extends StatefulWidget {
 }
 
 class _PaperViewerState extends State<PaperViewer> {
-  
+
+  // late bool _isLoading = true;
+  // late PDFDocument document;
+
+  @override
+  void initState() {
+    super.initState();
+    // loadDocument();
+  }
+
+  // loadDocument() async {
+  //   document = await PDFDocument.fromAsset('assets/ca9.pdf');
+  //
+  //   setState(() => _isLoading = false);
+  // }
+
   //  PaperViewer(this._webViewControllerFuture, {Key? key}) : super(key: key);
  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
     Factory(() => EagerGestureRecognizer())
@@ -67,7 +82,15 @@ class _PaperViewerState extends State<PaperViewer> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-
+      // body: Center(
+      //     child: _isLoading
+      //         ? const Center(child: CircularProgressIndicator())
+      //         : PDFViewer(document: document)),
+      body: SfPdfViewer.network(
+        'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+        // key: _pdfViewerKey,
+      ),
+    );
       // body: SfPdfViewer.asset(
         // widget.pdf
       // body: PdfView(
@@ -186,7 +209,7 @@ class _PaperViewerState extends State<PaperViewer> {
             child: const Icon(Icons.search),
           ),
         ],
-      ),
+      // ),
     );
   }
 }
